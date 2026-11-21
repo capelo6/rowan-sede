@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+// Notificaciones rechazadas por plazo, propuestas de desistimiento y recordatorios por correo.
+Schedule::command('sede:tareas')->hourly()->withoutOverlapping();

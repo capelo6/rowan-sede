@@ -110,7 +110,7 @@ class Liquidador
 
         $liquidacion->update(['estado' => 'pagada', 'pagada_at' => now()]);
 
-        $expediente = $liquidacion->expediente;
+        $expediente = $liquidacion->expediente()->firstOrFail();
         $csv = $this->almacen->nuevoCsv();
         $filas = '';
         foreach ($liquidacion->lineas as $l) {

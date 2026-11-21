@@ -177,7 +177,8 @@ class Tramitador
      */
     public function atenderRequerimiento(Requerimiento $requerimiento, Persona $persona, array $documentos, array $datos = []): Registro
     {
-        $expediente = $requerimiento->expediente;
+        $requerimiento->refresh();
+        $expediente = $requerimiento->expediente()->firstOrFail(); // siempre el estado actual, no una copia en caché
         if ($requerimiento->estado !== 'pendiente' || $expediente->estado->esFinal()) {
             throw new DomainException('Este requerimiento ya no admite respuesta.');
         }
