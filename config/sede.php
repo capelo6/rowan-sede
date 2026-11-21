@@ -84,6 +84,11 @@ return [
         ],
     ],
 
+    'gestion' => [
+        // El personal tiene que configurar el segundo factor (TOTP) para entrar en el panel.
+        'doble_factor_obligatorio' => (bool) env('SEDE_GESTION_2FA', true),
+    ],
+
     'sello' => [
         // Certificado de sello electrónico del organismo (PKCS#12).
         'p12' => env('SEDE_SELLO_P12', storage_path('app/sello/sello.p12')),

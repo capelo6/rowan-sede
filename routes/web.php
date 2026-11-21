@@ -12,6 +12,12 @@ use App\Http\Controllers\Sede\SolicitudController;
 use App\Http\Controllers\Sede\VerificacionController;
 use Illuminate\Support\Facades\Route;
 
+// Descargas del panel de gestión (personal autenticado; se registran en la auditoría)
+Route::middleware(['auth:web'])->prefix('gestion/descargas')->name('gestion.')->group(function () {
+    Route::get('/documentos/{documento}', [\App\Http\Controllers\Gestion\DescargaController::class, 'documento'])->name('documentos.descargar');
+    Route::get('/expedientes/{expediente}.zip', [\App\Http\Controllers\Gestion\DescargaController::class, 'zip'])->name('expedientes.zip');
+});
+
 Route::name('sede.')->group(function () {
     // Páginas públicas
     Route::get('/', [PaginaController::class, 'inicio'])->name('inicio');
