@@ -58,7 +58,7 @@ class PanelGestionTest extends TestCase
             $this->get($url)->assertOk();
         }
         $this->get(ExpedienteResource::getUrl('view', ['record' => $this->expediente]))->assertOk()->assertSee($this->expediente->numero);
-        $this->get('/gestion/procedimientos/1/editar')->assertOk();
+        $this->get('/gestion/procedimientos/'.Procedimiento::query()->value('id').'/editar')->assertOk();
     }
 
     public function test_consulta_no_ve_la_configuracion_ni_tramita(): void
