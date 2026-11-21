@@ -28,9 +28,13 @@ class UsuarioResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Administración';
 
+    protected static ?string $navigationLabel = 'Personal';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'usuario';
 
-    protected static ?string $pluralModelLabel = 'personal';
+    protected static ?string $pluralModelLabel = 'Personal';
 
     protected static ?int $navigationSort = 1;
 

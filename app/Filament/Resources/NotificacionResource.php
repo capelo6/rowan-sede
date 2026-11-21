@@ -22,9 +22,13 @@ class NotificacionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Registro y pagos';
 
+    protected static ?string $navigationLabel = 'Notificaciones';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'notificación';
 
-    protected static ?string $pluralModelLabel = 'notificaciones';
+    protected static ?string $pluralModelLabel = 'Notificaciones';
 
     protected static ?string $slug = 'notificaciones';
 

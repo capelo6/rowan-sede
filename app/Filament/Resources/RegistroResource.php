@@ -25,9 +25,13 @@ class RegistroResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Registro y pagos';
 
+    protected static ?string $navigationLabel = 'Registro de entrada y salida';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'asiento';
 
-    protected static ?string $pluralModelLabel = 'registro de entrada y salida';
+    protected static ?string $pluralModelLabel = 'Registro de entrada y salida';
 
     protected static ?int $navigationSort = 1;
 

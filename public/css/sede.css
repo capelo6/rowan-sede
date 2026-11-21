@@ -28,7 +28,11 @@ body {
   line-height: 1.55;
   color: var(--texto);
   background: var(--fondo-suave);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+body > main { flex: 1 0 auto; }
 img { max-width: 100%; height: auto; }
 a { color: var(--acento); text-underline-offset: 0.15em; }
 a:hover { color: var(--primario); }

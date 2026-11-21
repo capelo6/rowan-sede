@@ -33,9 +33,13 @@ class ActuacionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Tramitación';
 
+    protected static ?string $navigationLabel = 'Servicios en curso';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'servicio';
 
-    protected static ?string $pluralModelLabel = 'servicios en curso';
+    protected static ?string $pluralModelLabel = 'Servicios en curso';
 
     protected static ?string $slug = 'servicios';
 

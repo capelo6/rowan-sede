@@ -26,9 +26,13 @@ class RepresentacionResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Tramitación';
 
+    protected static ?string $navigationLabel = 'Representaciones';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'representación';
 
-    protected static ?string $pluralModelLabel = 'representaciones';
+    protected static ?string $pluralModelLabel = 'Representaciones';
 
     protected static ?string $slug = 'representaciones';
 

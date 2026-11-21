@@ -25,9 +25,13 @@ class PagoResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Registro y pagos';
 
+    protected static ?string $navigationLabel = 'Pagos';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'pago';
 
-    protected static ?string $pluralModelLabel = 'pagos';
+    protected static ?string $pluralModelLabel = 'Pagos';
 
     protected static ?int $navigationSort = 2;
 

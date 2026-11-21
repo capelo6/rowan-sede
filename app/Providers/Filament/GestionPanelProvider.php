@@ -13,6 +13,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -36,6 +37,7 @@ class GestionPanelProvider extends PanelProvider
                 isRequired: (bool) config('sede.gestion.doble_factor_obligatorio', true),
             )
             ->brandName('Gestión · Sede electrónica')
+            ->maxContentWidth(Width::Full)
             ->colors(['primary' => Color::hex('#1f3a5f')])
             ->navigationGroups([
                 NavigationGroup::make('Tramitación'),

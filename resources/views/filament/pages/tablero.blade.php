@@ -14,7 +14,7 @@
             <section aria-label="{{ $col['etiqueta'] }}" style="background:rgba(128,128,128,.08);border-radius:.6rem;padding:.6rem;min-height:12rem;">
                 <h2 style="font-weight:700;margin-bottom:.6rem;">{{ $col['etiqueta'] }} <span style="opacity:.7;">({{ count($col['tarjetas']) }})</span></h2>
                 @forelse($col['tarjetas'] as $t)
-                    <a href="{{ $t['url'] }}" style="display:block;background:var(--color-white, #fff);color:inherit;border:1px solid rgba(128,128,128,.3);border-left:5px solid {{ $t['semaforo'] === 'urgente' ? '#b91c1c' : ($t['vence'] ? '#b45309' : '#64748b') }};border-radius:.5rem;padding:.55rem .65rem;margin-bottom:.5rem;text-decoration:none;">
+                    <a href="{{ $t['url'] }}" style="display:block;background:rgba(128,128,128,.14);color:inherit;border:1px solid rgba(128,128,128,.3);border-left:5px solid {{ $t['semaforo'] === 'urgente' ? '#b91c1c' : ($t['vence'] ? '#b45309' : '#64748b') }};border-radius:.5rem;padding:.55rem .65rem;margin-bottom:.5rem;text-decoration:none;">
                         <strong>{{ $t['numero'] }}</strong>
                         @if($t['desistimiento'])<span style="color:#b91c1c;font-weight:700;"> · desistimiento propuesto</span>@endif
                         <div style="font-size:.85rem;">{{ $t['tramite'] }}</div>

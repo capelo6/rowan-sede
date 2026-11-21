@@ -32,9 +32,13 @@ class ProcedimientoResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Configuración';
 
+    protected static ?string $navigationLabel = 'Catálogo de trámites';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'procedimiento';
 
-    protected static ?string $pluralModelLabel = 'catálogo de trámites';
+    protected static ?string $pluralModelLabel = 'Catálogo de trámites';
 
     protected static ?int $navigationSort = 10;
 

@@ -27,9 +27,13 @@ class FestivoResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Configuración';
 
+    protected static ?string $navigationLabel = 'Calendario de festivos';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'festivo';
 
-    protected static ?string $pluralModelLabel = 'calendario de festivos';
+    protected static ?string $pluralModelLabel = 'Calendario de festivos';
 
     protected static ?int $navigationSort = 30;
 

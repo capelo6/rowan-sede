@@ -27,9 +27,13 @@ class PlantillaResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Configuración';
 
+    protected static ?string $navigationLabel = 'Plantillas de documentos';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'plantilla';
 
-    protected static ?string $pluralModelLabel = 'plantillas de documentos';
+    protected static ?string $pluralModelLabel = 'Plantillas de documentos';
 
     protected static ?int $navigationSort = 40;
 

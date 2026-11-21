@@ -28,9 +28,13 @@ class TasaResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Configuración';
 
+    protected static ?string $navigationLabel = 'Catálogo de tasas';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'tasa';
 
-    protected static ?string $pluralModelLabel = 'catálogo de tasas';
+    protected static ?string $pluralModelLabel = 'Catálogo de tasas';
 
     protected static ?int $navigationSort = 20;
 

@@ -36,9 +36,13 @@ class ExpedienteResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Tramitación';
 
+    protected static ?string $navigationLabel = 'Bandeja de expedientes';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'expediente';
 
-    protected static ?string $pluralModelLabel = 'bandeja de expedientes';
+    protected static ?string $pluralModelLabel = 'Bandeja de expedientes';
 
     protected static ?string $recordTitleAttribute = 'numero';
 
@@ -117,7 +121,7 @@ class ExpedienteResource extends Resource
     public static function infolist(Schema $schema): Schema
     {
         return $schema->components([
-            Grid::make(3)->schema([
+            Grid::make(3)->columnSpanFull()->schema([
                 Section::make('Expediente')->columnSpan(2)->columns(2)->schema([
                     TextEntry::make('numero')->label('Número'),
                     TextEntry::make('procedimiento.nombre')->label('Trámite'),

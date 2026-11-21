@@ -22,9 +22,13 @@ class AuditoriaResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Administración';
 
+    protected static ?string $navigationLabel = 'Auditoría';
+
+    protected static bool $hasTitleCaseModelLabel = false;
+
     protected static ?string $modelLabel = 'actividad';
 
-    protected static ?string $pluralModelLabel = 'auditoría';
+    protected static ?string $pluralModelLabel = 'Auditoría';
 
     protected static ?string $slug = 'auditoria';
 
