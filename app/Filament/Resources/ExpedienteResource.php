@@ -20,7 +20,6 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\View;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -100,8 +99,8 @@ class ExpedienteResource extends Resource
                         return $v->format('d/m/Y').' · '.($d < 0 ? 'vencido' : $d.' d. háb.');
                     })
                     ->color(fn (Expediente $r) => app(Calendario::class)->semaforo(self::vencimiento($r)) === 'urgente' ? 'danger' : 'warning'),
-                IconColumn::make('desistimiento_propuesto_at')->label('Desist.')->tooltip('Desistimiento propuesto por el sistema')
-                    ->state(fn (Expediente $r) => $r->desistimiento_propuesto_at !== null)->boolean()->trueIcon(Heroicon::OutlinedExclamationTriangle)->trueColor('danger')->falseIcon(null),
+                TextColumn::make('desistimiento')->label('Desistimiento')
+                    ->state(fn (Expediente $r) => $r->desistimiento_propuesto_at ? 'Propuesto' : null)->badge()->color('danger')->placeholder(''),
                 TextColumn::make('asignado.name')->label('Asignado a')->placeholder('Sin asignar')->toggleable(),
                 TextColumn::make('presentado_at')->label('Presentado')->dateTime('d/m/Y H:i')->sortable(),
             ])

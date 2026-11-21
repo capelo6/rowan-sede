@@ -15,7 +15,7 @@ use Spatie\Permission\Models\Role;
 /** Carga un organismo ficticio («Mancomunidad de Valdeloria») con procedimientos, tasas, plantillas y personal. */
 class Demo extends Command
 {
-    protected $signature = 'sede:demo {--clave=demo-sede-2026 : Contraseña del personal de demostración}';
+    protected $signature = 'sede:demo {--clave=demo-sede-2026 : Contraseña del personal de demostración} {--expedientes : Crea además expedientes de ejemplo en varios estados}';
 
     protected $description = 'Carga los datos de demostración de la sede electrónica';
 
@@ -125,10 +125,57 @@ class Demo extends Command
             Plantilla::query()->updateOrCreate(['codigo' => $codigo], ['nombre' => $nombre, 'tipo' => $tipo, 'asunto' => $asunto, 'cuerpo' => $cuerpo, 'activa' => true]);
         }
 
+        if ($this->option('expedientes')) {
+            $this->expedientesDeEjemplo();
+        }
+
         $this->info('Demo cargada: Mancomunidad de Valdeloria.');
         $this->line('Panel: /gestion · admin@valdeloria.example, tramitacion@valdeloria.example, consulta@valdeloria.example · clave '.$clave);
         $this->line('Sede: / · active SEDE_ACCESO_SIMULADO=true para entrar sin certificado.');
 
         return self::SUCCESS;
+    }
+
+    /** Expedientes ficticios en distintos estados para enseñar la sede y el panel. */
+    private function expedientesDeEjemplo(): void
+    {
+        $t = app(\App\Sede\Expedientes\Tramitador::class);
+        $liq = app(\App\Sede\Pagos\Liquidador::class);
+        $personal = User::query()->where('email', 'tramitacion@valdeloria.example')->firstOrFail();
+        $p = fn (string $codigo) => Procedimiento::query()->where('codigo', $codigo)->firstOrFail();
+        $maria = \App\Models\Persona::query()->updateOrCreate(['nif' => '12345678Z'], ['nombre' => 'María', 'apellido1' => 'Pérez Gómez',
+            'email' => 'maria@example.com', 'privacidad_aceptada_at' => now(), 'consentimiento_notificaciones_at' => now()]);
+        $andres = \App\Models\Persona::query()->updateOrCreate(['nif' => '00000000T'], ['nombre' => 'Andrés', 'apellido1' => 'Souto Lago',
+            'email' => 'andres@example.com', 'privacidad_aceptada_at' => now()]);
+
+        $nuevo = function ($persona, $codigo, array $datos) use ($t, $p) {
+            $e = $t->crearBorrador($p($codigo), $persona);
+            $e->update(['datos' => $datos]);
+            $t->presentar($e->refresh(), []);
+
+            return $e->refresh();
+        };
+
+        // 1. Esperando documentación (requerimiento con plazo)
+        $e1 = $nuevo($maria, 'CERTIFICADO', ['tipo' => 'Duplicado de título', 'referencia' => 'T-1987-0042', 'motivo' => 'Extravío del original']);
+        $t->asignar($e1, $personal);
+        $t->requerir($e1->refresh(), $personal, [['clave' => 'req1', 'tipo' => 'documento', 'descripcion' => 'Copia legible del documento de identidad por las dos caras']],
+            'La copia aportada no se lee bien.');
+
+        // 2. Pendiente de pago
+        $e2 = $nuevo($maria, 'AUTORIZACION', ['ubicacion' => 'Zona norte, parcela 12', 'descripcion' => 'Sustitución de la cubierta', 'cotitulares' => '']);
+        $t->asignar($e2, $personal);
+        $tasa = Tasa::query()->where('codigo', 'T02')->where('ejercicio', (int) now()->format('Y'))->firstOrFail();
+        $liq->emitir($e2->refresh(), $personal, [['tasa_id' => $tasa->id, 'cantidad' => 1]]);
+
+        // 3. Nueva, de otra persona
+        $nuevo($andres, 'SOLICITUD-GENERAL', ['asunto' => 'Consulta de horarios', 'expone' => 'Quiero conocer los horarios de verano.', 'solicita' => 'Información de horarios.']);
+
+        // 4. Cerrada con resolución
+        $e4 = $nuevo($maria, 'SOLICITUD-GENERAL', ['asunto' => 'Cambio de domicilio a efectos de notificaciones', 'expone' => 'He cambiado de domicilio.', 'solicita' => 'Que se actualicen mis datos.']);
+        $t->asignar($e4, $personal);
+        $t->resolver($e4->refresh(), $personal, Plantilla::query()->where('codigo', 'RES-ESTIMATORIA')->firstOrFail(), 'aprobada', 'Datos actualizados.');
+
+        $this->line('Expedientes de ejemplo creados (persona de demostración: NIF 12345678Z).');
     }
 }

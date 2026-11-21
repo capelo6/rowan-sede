@@ -38,6 +38,7 @@ class GestionPanelProvider extends PanelProvider
             )
             ->brandName('Gestión · Sede electrónica')
             ->maxContentWidth(Width::Full)
+            ->defaultThemeMode(\Filament\Enums\ThemeMode::Light)
             ->colors(['primary' => Color::hex('#1f3a5f')])
             ->navigationGroups([
                 NavigationGroup::make('Tramitación'),
